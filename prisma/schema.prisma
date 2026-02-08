@@ -1,0 +1,607 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  // url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+// =============================================================================
+// ENUMS — sourced from data.txt strict list
+// =============================================================================
+
+enum IndustryVertical {
+  saas
+  b2b
+  consumer_app
+  b2c
+  fintech
+  crypto
+  web3
+  e_commerce
+  retail
+  ai
+  machine_learning
+  developer_tools
+  agency
+  design
+  portfolio
+  health
+  medical
+  wellness
+  education
+  lms
+  real_estate
+  proptech
+  non_profit
+  charity
+  news
+  media
+  publishing
+  travel
+  hospitality
+  logistics
+  transportation
+  cybersecurity
+  gaming
+  entertainment
+}
+
+enum PageType {
+  home
+  pricing
+  about
+  contact
+  blog
+  blog_post
+  features
+  product_detail
+  case_studies
+  careers
+  career_detail
+  documentation
+  help_center
+  changelog
+  legal
+  error_404
+  error_500
+  maintenance
+  coming_soon
+}
+
+enum SectionType {
+  hero
+  logo_cloud
+  features
+  bento_grid
+  how_it_works
+  showcase
+  stats
+  testimonials
+  pricing
+  faq
+  call_to_action
+  team
+  career
+  timeline
+  integrations
+  blog_posts
+  gallery
+  video
+  contact
+  newsletter
+  footer
+  error_404
+}
+
+enum Viewport {
+  desktop
+  tablet
+  mobile
+  responsive_showcase
+}
+
+enum OverallVibe {
+  minimalist
+  clean
+  corporate
+  trustworthy
+  brutalist
+  playful
+  whimsical
+  futuristic
+  cyberpunk
+  luxury
+  elegant
+  retro
+  vintage
+  nostalgic
+  technical
+  artistic
+  experimental
+  academic
+  flat
+  skeuomorphic
+  tactile
+  glassmorphism
+}
+
+enum ThemeMode {
+  light
+  dark
+  dim
+  oled_black
+  colorful
+}
+
+enum ColorPalette {
+  monochrome
+  grayscale
+  duochrome
+  neon
+  vibrant
+  pastel
+  muted
+  soft
+  earth_tones
+  high_contrast
+  gradient_heavy
+  warm
+  cool
+}
+
+enum BackgroundTreatment {
+  solid
+  linear_gradient
+  radial_gradient
+  mesh_blur
+  geometric
+  grid_lines
+  dot_matrix
+  noise
+  film_grain
+  photographic
+  video
+  three_d_render  @map("3d_render")
+  abstract
+}
+
+enum LayoutStructure {
+  centered
+  symmetrical
+  asymmetrical
+  split_screen
+  grid
+  modular
+  bento
+  masonry
+  card_based
+  full_screen
+  overlay
+  z_pattern
+  f_pattern
+  sidebar
+  single_column
+  broken_grid
+}
+
+enum SectionDivider {
+  none
+  straight_line
+  full_width
+  curved
+  wave
+  angled
+  diagonal
+  gradient
+  fade
+  torn_edge
+  overlapping
+  offset
+  mask
+  cutout
+}
+
+enum TypographyStyle {
+  sans_serif
+  serif
+  monospace
+  display
+  modern
+  editorial
+  technical
+  bold
+  oversized
+  mixed
+  handwritten
+  script
+  industrial
+}
+
+enum TextDecoration {
+  none
+  gradient_fill
+  underline
+  highlight
+  marker
+  hand_drawn
+  doodle
+  inline_icons
+  emojis
+  glitch
+  outlined
+  stroke
+  typewriter
+}
+
+enum IconStyle {
+  none
+  outlined
+  filled
+  duotone
+  three_d       @map("3d")
+  hand_drawn
+  geometric
+  gradient_fill
+  line_art
+}
+
+enum IllustrationStyle {
+  none
+  abstract
+  geometric
+  character
+  isometric
+  line_art
+  watercolor
+  collage
+  hand_drawn
+  three_d_render @map("3d_render")
+}
+
+enum ProductImagery {
+  none
+  flat_2d
+  screenshot
+  clean
+  browser_mockup
+  mobile_mockup
+  three_d        @map("3d")
+  isometric
+  illustration
+  floating
+  gravity
+  exploded_view
+  technical
+  translucent
+  glass
+  layered
+  abstract
+  symbolic
+  photography
+  lifestyle
+}
+
+enum NavigationStyle {
+  none
+  text_links
+  tabs
+  horizontal
+  vertical
+  sidebar
+  pill_shape
+  segmented
+  icon_only
+  icon_label
+  row
+  stack
+  step_progress
+  numbered
+  carousel
+  dots
+  arrows
+  accordion
+  floating
+  fab
+  breadcrumbs
+}
+
+enum ContainerStyle {
+  borderless
+  transparent
+  solid
+  card
+  soft_shadow
+  hard_shadow
+  colored_fill
+  outline
+  border
+  glass
+  blur
+  frosted
+  gradient
+  mesh
+  brutalist
+  offset
+  inner_glow
+  inset
+  patterned
+  texture
+  stacked
+  layered
+}
+
+enum ButtonStyle {
+  solid
+  filled
+  rounded
+  sharp
+  square
+  outline
+  ghost
+  gradient
+  icon_only
+  text_link
+  arrow
+  hard_shadow
+  brutalist
+}
+
+enum AnimationIndicator {
+  none
+  carousel_dots
+  play_button
+  scroll_indicator
+  motion_blur
+  parallax_hint
+  loading_spinner
+  skeleton_loader
+  progress_bar
+}
+
+enum ToneOfVoice {
+  authoritative
+  expert
+  formal
+  conversational
+  friendly
+  casual
+  witty
+  humorous
+  irreverent
+  urgent
+  sales_driven
+  technical
+  precise
+  dry
+  empathetic
+  supportive
+  luxury
+  minimal
+  whisper
+  high_energy
+  hype
+}
+
+enum VisualToTextRatio {
+  image_dominant
+  balanced
+  text_dominant
+}
+
+enum ContentFormat {
+  headline_focus
+  bullet_points
+  long_form
+  data_labels
+  dashboard
+  paragraph
+  mixed
+}
+
+enum BorderRadius {
+  sharp
+  micro
+  subtle
+  standard
+  large
+  full
+  pill
+}
+
+enum SpacingDensity {
+  compact
+  data_dense
+  standard
+  comfortable
+  relaxed
+  airy
+  expansive
+  luxury
+  whitespace
+}
+
+enum GlassmorphismIntensity {
+  none
+  opaque
+  subtle
+  frost
+  ten_percent @map("10_percent")
+  medium
+  blur
+  backdrop
+  heavy
+  matte
+  glass
+  iridescent
+  oil_slick
+}
+
+enum ShadowElevation {
+  flat
+  no_shadow
+  subtle
+  border_ring
+  low
+  elevation
+  sm
+  medium
+  md
+  high
+  floating
+  lg
+  colored
+  glow
+  diffuse
+}
+
+enum ContrastLevel {
+  low
+  wcag_aa
+  wcag_aaa
+  high
+}
+
+// =============================================================================
+// MODELS
+// =============================================================================
+
+/// Core section record — slim, references only what's unique to the section.
+/// appCode, platformCode, versionCode, pageCode, sectionCode live elsewhere.
+model Section {
+  id        String @id @default(uuid())
+  sectionId String @unique @map("section_id")
+  fileKey   String @map("file_key")
+
+  // Original raw JSON blob preserved for auditing
+  rawJson Json @map("raw_json")
+
+  // Top-level text fields from the classification
+  description         String? @map("description") @db.Text
+  classificationNotes String? @map("classification_notes") @db.Text
+
+  // Processing metadata
+  modelUsed    String   @map("model_used")
+  status       String   @default("success")
+  errorMessage String?  @map("error_message") @db.Text
+  processedAt  DateTime @map("processed_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  // --- Relations to sub-tables ---
+  context         SectionContext?         @relation
+  aesthetic       SectionAesthetic?       @relation
+  composition     SectionComposition?     @relation
+  uiElements      SectionUiElements?      @relation
+  contentStrategy SectionContentStrategy? @relation
+  designTokens    SectionDesignTokens?    @relation
+  embedding       SectionEmbedding?       @relation
+
+  @@map("sections")
+}
+
+/// Context classification for a section
+model SectionContext {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  industryVerticals IndustryVertical[] @map("industry_verticals")
+  pageType          PageType?          @map("page_type")
+  sectionType       SectionType?       @map("section_type")
+  viewport          Viewport?          @map("viewport")
+
+  @@map("section_contexts")
+}
+
+/// Aesthetic classification for a section
+model SectionAesthetic {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  overallVibes         OverallVibe[]         @map("overall_vibes")
+  themeMode            ThemeMode?            @map("theme_mode")
+  colorPaletteStyles   ColorPalette[]        @map("color_palette_styles")
+  backgroundTreatments BackgroundTreatment[] @map("background_treatments")
+
+  @@map("section_aesthetics")
+}
+
+/// Composition classification for a section
+model SectionComposition {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  layoutStructures LayoutStructure[] @map("layout_structures")
+  sectionDividers  SectionDivider?   @map("section_dividers")
+
+  @@map("section_compositions")
+}
+
+/// UI elements classification for a section
+model SectionUiElements {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  typographyStyles    TypographyStyle[]    @map("typography_styles")
+  textDecorations     TextDecoration[]     @map("text_decorations")
+  iconStyles          IconStyle[]          @map("icon_styles")
+  illustrationStyles  IllustrationStyle[]  @map("illustration_styles")
+  productImageryTypes ProductImagery[]     @map("product_imagery_types")
+  navigationStyles    NavigationStyle[]    @map("navigation_styles")
+  containerStyles     ContainerStyle[]     @map("container_styles")
+  buttonStyles        ButtonStyle[]        @map("button_styles")
+  animationIndicators AnimationIndicator[] @map("animation_indicators")
+
+  @@map("section_ui_elements")
+}
+
+/// Content strategy classification for a section
+model SectionContentStrategy {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  tonesOfVoice      ToneOfVoice[]      @map("tones_of_voice")
+  visualToTextRatio VisualToTextRatio? @map("visual_to_text_ratio")
+  contentFormats    ContentFormat[]    @map("content_formats")
+
+  @@map("section_content_strategies")
+}
+
+/// Design token specs for a section
+model SectionDesignTokens {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  borderRadius           BorderRadius?           @map("border_radius")
+  spacingDensity         SpacingDensity?         @map("spacing_density")
+  glassmorphismIntensity GlassmorphismIntensity? @map("glassmorphism_intensity")
+  shadowElevation        ShadowElevation?        @map("shadow_elevation")
+  contrastLevel          ContrastLevel?          @map("contrast_level")
+
+  @@map("section_design_tokens")
+}
+
+/// Embedding stored separately — linked to section via sectionId
+model SectionEmbedding {
+  id        String  @id @default(uuid())
+  sectionId String  @unique @map("section_id")
+  section   Section @relation(fields: [sectionId], references: [sectionId], onDelete: Cascade)
+
+  combinedText String                       @map("combined_text") @db.Text
+  embedding    Unsupported("vector(1536)")? @map("embedding")
+
+  provider   String   @map("provider")
+  model      String   @map("model")
+  embeddedAt DateTime @default(now()) @map("embedded_at")
+
+  @@map("section_embeddings")
+}

@@ -1,0 +1,93 @@
+{
+    "context": {
+        "industry_vertical": [
+            "crypto",
+            "web3",
+            "developer_tools"
+        ],
+        "page_type": "blog",
+        "section_type": "hero"
+    },
+    "aesthetic": {
+        "overall_vibe": [
+            "clean",
+            "minimalist",
+            "technical"
+        ],
+        "theme_mode": "light",
+        "color_palette_style": [
+            "grayscale",
+            "vibrant",
+            "soft"
+        ],
+        "background_treatment": [
+            "solid"
+        ]
+    },
+    "composition": {
+        "layout_structure": [
+            "split_screen",
+            "card_based"
+        ],
+        "section_dividers": "none"
+    },
+    "ui_elements": {
+        "typography_style": [
+            "sans_serif",
+            "modern"
+        ],
+        "text_decoration_details": [
+            "none"
+        ],
+        "icon_style": [
+            "none"
+        ],
+        "illustration_style": [
+            "abstract",
+            "geometric"
+        ],
+        "product_imagery_type": [
+            "abstract",
+            "symbolic"
+        ],
+        "navigation_style": [
+            "pill_shape",
+            "horizontal",
+            "text_links"
+        ],
+        "container_style": [
+            "card",
+            "soft_shadow",
+            "borderless"
+        ],
+        "button_style": [
+            "filled",
+            "rounded",
+            "pill_shape"
+        ],
+        "animation_indicators": [
+            "none"
+        ]
+    },
+    "content_strategy": {
+        "tone_of_voice": [
+            "technical",
+            "expert",
+            "informative"
+        ],
+        "visual_to_text_ratio": "balanced",
+        "content_format": [
+            "headline_focus",
+            "paragraph"
+        ]
+    },
+    "design_tokens_specs": {
+        "border_radius_scale": "large",
+        "spacing_density": "comfortable",
+        "glassmorphism_intensity": "none",
+        "shadow_elevation": "subtle",
+        "contrast_level": "wcag_aa"
+    },
+    "description": "The layout features a large, rounded-corner card container with a light gray background, housing a split-screen arrangement of text and a bold, purple geometric abstract graphic. Navigation elements use pill-shaped backgrounds with subtle hover states, creating a highly structured and modern developer-centric aesthetic.",
+    "classification_notes": ""
+}

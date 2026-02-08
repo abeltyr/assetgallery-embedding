@@ -1,0 +1,114 @@
+THE ENUMS (Strict Source of Truth):
+
+Use the values from this list only. Do not invent new tags.
+
+CONTEXT
+
+Industry Vertical: [saas, b2b, consumer_app, b2c, fintech, crypto, web3, e_commerce, retail, ai, machine_learning, developer_tools, agency, design, portfolio, health, medical, wellness, education, lms, real_estate, proptech, non_profit, charity, news, media, publishing, travel, hospitality, logistics, transportation, cybersecurity, gaming, entertainment]
+
+Page Type: [home, pricing, about, contact, blog, blog_post, features, product_detail, case_studies, careers, career_detail, documentation, help_center, changelog, legal, error_404, error_500, maintenance, coming_soon]
+
+Section Type: [hero, logo_cloud, features, bento_grid, how_it_works, showcase, stats, testimonials, pricing, faq, call_to_action, team, career, timeline, integrations, blog_posts, gallery, video, contact, newsletter, footer, error_404]
+
+Viewport: [desktop, tablet, mobile, responsive_showcase]
+
+AESTHETIC
+
+Overall Vibe: [minimalist, clean, corporate, trustworthy, brutalist, playful, whimsical, futuristic, cyberpunk, luxury, elegant, retro, vintage, nostalgic, technical, artistic, experimental, academic, flat, skeuomorphic, tactile, glassmorphism]
+
+Theme Mode: [light, dark, dim, oled_black, colorful]
+
+Color Palette: [monochrome, grayscale, duochrome, neon, vibrant, pastel, muted, soft, earth_tones, high_contrast, gradient_heavy, warm, cool]
+
+Background: [solid, linear_gradient, radial_gradient, mesh_blur, geometric, grid_lines, dot_matrix, noise, film_grain, photographic, video, 3d_render, abstract]
+
+COMPOSITION
+
+Layout Structure: [centered, symmetrical, asymmetrical, split_screen, grid, modular, bento, masonry, card_based, full_screen, overlay, z_pattern, f_pattern, sidebar, single_column, broken_grid]
+
+Section Dividers: [none, straight_line, full_width, curved, wave, angled, diagonal, gradient, fade, torn_edge, overlapping, offset, mask, cutout]
+
+UI ELEMENTS
+
+Typography: [sans_serif, serif, monospace, display, modern, editorial, technical, bold, oversized, mixed, handwritten, script, industrial]
+
+Text Decoration: [none, gradient_fill, underline, highlight, marker, hand_drawn, doodle, inline_icons, emojis, glitch, outlined, stroke, typewriter]
+
+Icon Style: [none, outlined, filled, duotone, 3d, hand_drawn, geometric, gradient_fill, line_art]
+
+Illustration Style: [none, abstract, geometric, character, isometric, line_art, watercolor, collage, hand_drawn, 3d_render]
+
+Product Imagery: [none, flat_2d, screenshot, clean, browser_mockup, mobile_mockup, 3d, isometric, illustration, floating, gravity, exploded_view, technical, translucent, glass, layered, abstract, symbolic, photography, lifestyle]
+
+Navigation Style: [none, text_links, tabs, horizontal, vertical, sidebar, pill_shape, segmented, icon_only, icon_label, row, stack, step_progress, numbered, carousel, dots, arrows, accordion, floating, fab, breadcrumbs]
+
+Container Style: [borderless, transparent, solid, card, soft_shadow, hard_shadow, colored_fill, outline, border, glass, blur, frosted, gradient, mesh, brutalist, offset, inner_glow, inset, patterned, texture, stacked, layered]
+
+Button Style: [solid, filled, rounded, sharp, square, outline, ghost, gradient, icon_only, text_link, arrow, hard_shadow, brutalist]
+
+Animation Indicators: [none, carousel_dots, play_button, scroll_indicator, motion_blur, parallax_hint, loading_spinner, skeleton_loader, progress_bar]
+
+CONTENT STRATEGY
+
+Tone of Voice: [authoritative, expert, formal, conversational, friendly, casual, witty, humorous, irreverent, urgent, sales_driven, technical, precise, dry, empathetic, supportive, luxury, minimal, whisper, high_energy, hype]
+
+Visual to Text Ratio: [image_dominant, balanced, text_dominant]
+
+Content Format: [headline_focus, bullet_points, long_form, data_labels, dashboard, paragraph, mixed]
+
+DESIGN TOKENS
+
+Border Radius: [sharp, micro, subtle, standard, large, full, pill]
+
+Spacing Density: [compact, data_dense, standard, comfortable, relaxed, airy, expansive, luxury, whitespace]
+
+Glassmorphism: [none, opaque, subtle, frost, 10_percent, medium, blur, backdrop, heavy, matte, glass, iridescent, oil_slick]
+
+Shadow Elevation: [flat, no_shadow, subtle, border_ring, low, elevation, sm, medium, md, high, floating, lg, colored, glow, diffuse]
+
+Contrast Level: [low, wcag_aa, wcag_aaa, high]
+
+OUTPUT SCHEMA:
+
+{
+  "context": {
+    "industry_vertical": ["String"],
+    "page_type": "String",
+    "section_type": "String",
+  },
+  "composition": {
+    "layout_structure": ["String"],
+    "section_dividers": "String"
+  },
+  "aesthetic": {
+    "overall_vibe": ["String"],
+    "theme_mode": "String",
+    "color_palette_style": ["String"],
+    "background_treatment": ["String"]
+  },
+  "content_strategy": {
+    "tone_of_voice": ["String"],
+    "visual_to_text_ratio": "String",
+    "content_format": ["String"]
+  },
+  "ui_elements": {
+    "typography_style": ["String"],
+    "text_decoration_details": ["String"],
+    "icon_style": ["String"],
+    "illustration_style": ["String"],
+    "product_imagery_type": ["String"],
+    "navigation_style": ["String"],
+    "container_style": ["String"],
+    "button_style": ["String"],
+    "animation_indicators": ["String"]
+  },
+  "design_tokens_specs": {
+    "border_radius_scale": "String",
+    "spacing_density": "String",
+    "glassmorphism_intensity": "String",
+    "shadow_elevation": "String",
+    "contrast_level": "String"
+  },
+  "description": "Capture visual details NOT covered by the structured fields above—such as: specific gradient directions, dominant visual hierarchy, unique spatial relationships, texture placement, image treatments, color accent patterns, scale contrasts, or compositional focal points. Assume the enum fields will be displayed separately. 1-2 sentences, visual-forensic style.",
+  "classification_notes": "Optional: Note any ambiguities, borderline decisions, or quality issues that affected classification. Leave empty if classification was straightforward."
+}

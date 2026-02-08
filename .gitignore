@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.db
+*.sqlite
+*.sqlite3
+
+/src/generated/prisma
