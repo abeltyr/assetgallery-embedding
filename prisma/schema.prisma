@@ -11,7 +11,7 @@ datasource db {
 }
 
 // =============================================================================
-// ENUMS — sourced from data.txt strict list
+// ENUMS — expanded to cover all values found in real classifier output
 // =============================================================================
 
 enum IndustryVertical {
@@ -49,6 +49,90 @@ enum IndustryVertical {
   cybersecurity
   gaming
   entertainment
+  // Additional values found in real data
+  academic
+  artistic
+  arts
+  author
+  business
+  career
+  careers
+  cloud_computing
+  cloud_infrastructure
+  communication
+  community
+  consulting
+  content_creation
+  corporate
+  creative
+  creative_agency
+  creative_services
+  creative_software
+  creative_tech
+  creative_tools
+  creative_writing
+  creator_economy
+  creators
+  crm
+  customer_app
+  customer_service
+  customer_support
+  data
+  data_analytics
+  data_integration
+  data_science
+  data_visualization
+  documentation
+  energy
+  enterprise
+  event_management
+  events
+  government
+  govtech
+  healthcare
+  hr_tech
+  hris
+  hrtech
+  human_resources
+  infrastructure
+  insurance
+  investing
+  legal
+  luxury
+  market_research
+  marketing
+  marketing_automation
+  marketing_learning
+  marketing_tech
+  marketing_technology
+  marketing_tools
+  no_code
+  open_source
+  productivity
+  recruitment
+  research
+  robotics
+  sales
+  sales_automation
+  sales_driven
+  sales_intelligence
+  sales_ops
+  sales_prospecting
+  sales_tech
+  sales_tools
+  science
+  social_media
+  sports
+  tech
+  tech_community
+  tech_events
+  tech_insights
+  tech_leaders
+  technical
+  technology
+  telecom
+  telecommunications
+  trading
 }
 
 enum PageType {
@@ -71,6 +155,14 @@ enum PageType {
   error_500
   maintenance
   coming_soon
+  // Additional values found in real data
+  education
+  faq
+  help
+  integrations
+  newsletter
+  resources
+  showcase
 }
 
 enum SectionType {
@@ -96,6 +188,10 @@ enum SectionType {
   newsletter
   footer
   error_404
+  // Additional values found in real data
+  case_studies
+  changelog
+  news
 }
 
 enum Viewport {
@@ -128,6 +224,19 @@ enum OverallVibe {
   skeuomorphic
   tactile
   glassmorphism
+  // Additional values found in real data
+  bold
+  dark
+  editorial
+  energetic
+  friendly
+  modern
+  professional
+  social_proof
+  soft
+  storytelling
+  vibrant
+  warm
 }
 
 enum ThemeMode {
@@ -152,6 +261,17 @@ enum ColorPalette {
   gradient_heavy
   warm
   cool
+  // Additional values found in real data
+  bold
+  colorful
+  dark
+  mesh_blur
+  multi_color
+  oled_black
+  primary_blue
+  primary_colors
+  purples
+  white
 }
 
 enum BackgroundTreatment {
@@ -166,8 +286,13 @@ enum BackgroundTreatment {
   film_grain
   photographic
   video
-  three_d_render  @map("3d_render")
+  three_d_render   @map("3d_render")
   abstract
+  // Additional values found in real data
+  collage
+  curved
+  patterned
+  texture
 }
 
 enum LayoutStructure {
@@ -187,6 +312,24 @@ enum LayoutStructure {
   sidebar
   single_column
   broken_grid
+  // Additional values found in real data
+  alternating
+  canvas
+  carousel
+  columnar
+  floating
+  horizontal
+  layered
+  list
+  multi_column
+  overlapping
+  scattered
+  stack
+  stacked
+  staggered
+  staircase
+  tabs
+  timeline
 }
 
 enum SectionDivider {
@@ -204,6 +347,8 @@ enum SectionDivider {
   offset
   mask
   cutout
+  // Additional values found in real data
+  dot_matrix
 }
 
 enum TypographyStyle {
@@ -220,6 +365,9 @@ enum TypographyStyle {
   handwritten
   script
   industrial
+  // Additional values found in real data
+  italic
+  none
 }
 
 enum TextDecoration {
@@ -236,6 +384,23 @@ enum TextDecoration {
   outlined
   stroke
   typewriter
+  // Additional values found in real data
+  arrow
+  bold
+  bracket_labels
+  dot_matrix
+  dotted
+  handwritten
+  italic
+  mixed
+  monospace
+  outline
+  pill_shape
+  script
+  strike_through
+  strikethrough
+  uppercase
+  wave
 }
 
 enum IconStyle {
@@ -243,11 +408,27 @@ enum IconStyle {
   outlined
   filled
   duotone
-  three_d       @map("3d")
+  three_d          @map("3d")
   hand_drawn
   geometric
   gradient_fill
   line_art
+  // Additional values found in real data
+  abstract
+  character
+  emoji
+  flat_2d
+  glass_fill
+  glassmorphism
+  grayscale
+  isometric
+  monochrome
+  pixel_art
+  rounded
+  soft_shadow
+  white
+  white_line_art
+  white_on_color
 }
 
 enum IllustrationStyle {
@@ -260,7 +441,36 @@ enum IllustrationStyle {
   watercolor
   collage
   hand_drawn
-  three_d_render @map("3d_render")
+  three_d_render   @map("3d_render")
+  // Additional values found in real data
+  two_d_render     @map("2d_render")
+  artistic
+  clay
+  colorful
+  doodle
+  dot_matrix
+  flat
+  flat_2d
+  floating
+  gradient_fill
+  mixed
+  noise
+  patterned
+  photography
+  pixel_art
+  playful
+  pop_art
+  retro
+  screenshot
+  sketchy
+  sticker
+  surrealist
+  tactile
+  technical
+  texture
+  textured
+  vibrant
+  vintage
 }
 
 enum ProductImagery {
@@ -270,7 +480,7 @@ enum ProductImagery {
   clean
   browser_mockup
   mobile_mockup
-  three_d        @map("3d")
+  three_d          @map("3d")
   isometric
   illustration
   floating
@@ -284,6 +494,34 @@ enum ProductImagery {
   symbolic
   photography
   lifestyle
+  // Additional values found in real data
+  three_d_render   @map("3d_render")
+  bento
+  code_editor
+  collage
+  dark
+  dashboard
+  data_labels
+  diagram
+  gallery
+  glow
+  hand_drawn
+  historical
+  iridescent
+  laptop_mockup
+  line_art
+  logo_cloud
+  mask
+  mesh
+  perspective
+  showcase
+  skeleton_loader
+  social_proof
+  soft_shadow
+  stacked
+  tablet_mockup
+  video
+  wireframe
 }
 
 enum NavigationStyle {
@@ -308,6 +546,15 @@ enum NavigationStyle {
   floating
   fab
   breadcrumbs
+  // Additional values found in real data
+  arrow
+  carousel_dots
+  column
+  footer
+  grid
+  progress_bar
+  text_link
+  timeline
 }
 
 enum ContainerStyle {
@@ -333,6 +580,30 @@ enum ContainerStyle {
   texture
   stacked
   layered
+  // Additional values found in real data
+  asymmetrical
+  browser_mockup
+  cutout
+  dark
+  dot_matrix
+  floating
+  glow
+  grid
+  grid_lines
+  large
+  mask
+  pill
+  pill_shape
+  radial_gradient
+  rounded
+  sharp
+  skeuomorphic
+  stack
+  standard
+  subtle
+  white
+  white_border
+  white_fill
 }
 
 enum ButtonStyle {
@@ -349,6 +620,15 @@ enum ButtonStyle {
   arrow
   hard_shadow
   brutalist
+  // Additional values found in real data
+  glass
+  icon_label
+  medium_shadow
+  none
+  pill
+  pill_shape
+  soft_shadow
+  subtle
 }
 
 enum AnimationIndicator {
@@ -361,6 +641,9 @@ enum AnimationIndicator {
   loading_spinner
   skeleton_loader
   progress_bar
+  // Additional values found in real data
+  arrows
+  timeline
 }
 
 enum ToneOfVoice {
@@ -385,6 +668,41 @@ enum ToneOfVoice {
   whisper
   high_energy
   hype
+  // Additional values found in real data
+  academic
+  approachable
+  artistic
+  bold
+  calm
+  clear
+  collaborative
+  community_driven
+  community_focused
+  confident
+  creative
+  critical
+  direct
+  educational
+  efficient
+  elegant
+  energetic
+  enthusiastic
+  helpful
+  human_centric
+  inclusive
+  informative
+  instructive
+  low_energy
+  modern
+  persuasive
+  problem_solving
+  professional
+  reassuring
+  secure
+  simple
+  transparent
+  trustworthy
+  welcoming
 }
 
 enum VisualToTextRatio {
@@ -401,6 +719,16 @@ enum ContentFormat {
   dashboard
   paragraph
   mixed
+  // Additional values found in real data
+  blog_posts
+  gallery
+  grid
+  logo_cloud
+  newsletter
+  numbered
+  numbered_list
+  stats
+  timeline
 }
 
 enum BorderRadius {
@@ -411,6 +739,8 @@ enum BorderRadius {
   large
   full
   pill
+  // Additional values found in real data
+  none
 }
 
 enum SpacingDensity {
@@ -430,7 +760,7 @@ enum GlassmorphismIntensity {
   opaque
   subtle
   frost
-  ten_percent @map("10_percent")
+  ten_percent      @map("10_percent")
   medium
   blur
   backdrop
@@ -457,6 +787,9 @@ enum ShadowElevation {
   colored
   glow
   diffuse
+  // Additional values found in real data
+  hard_shadow
+  inset
 }
 
 enum ContrastLevel {

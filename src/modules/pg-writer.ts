@@ -24,60 +24,84 @@ import type {
 } from "../types/index.js";
 import { PrismaPg } from '@prisma/adapter-pg'
 
-// Re-export the generated enums so callers can use them for filtering
-import type {
-  IndustryVertical,
-  PageType,
-  SectionType,
-  Viewport,
-  OverallVibe,
-  ThemeMode,
-  ColorPalette,
-  BackgroundTreatment,
-  LayoutStructure,
-  SectionDivider,
-  TypographyStyle,
-  TextDecoration,
-  IconStyle,
-  IllustrationStyle,
-  ProductImagery,
-  NavigationStyle,
-  ContainerStyle,
-  ButtonStyle,
-  AnimationIndicator,
-  ToneOfVoice,
-  VisualToTextRatio,
-  ContentFormat,
-  BorderRadius,
-  SpacingDensity,
-  GlassmorphismIntensity,
-  ShadowElevation,
-  ContrastLevel,
+// Import the actual enum objects (not just types) so we can validate at runtime
+import {
+  $Enums,
 } from "../generated/prisma/client.js";
 
+// Convenience type aliases
+type IndustryVertical = $Enums.IndustryVertical;
+type PageType = $Enums.PageType;
+type SectionType = $Enums.SectionType;
+type Viewport = $Enums.Viewport;
+type OverallVibe = $Enums.OverallVibe;
+type ThemeMode = $Enums.ThemeMode;
+type ColorPalette = $Enums.ColorPalette;
+type BackgroundTreatment = $Enums.BackgroundTreatment;
+type LayoutStructure = $Enums.LayoutStructure;
+type SectionDivider = $Enums.SectionDivider;
+type TypographyStyle = $Enums.TypographyStyle;
+type TextDecoration = $Enums.TextDecoration;
+type IconStyle = $Enums.IconStyle;
+type IllustrationStyle = $Enums.IllustrationStyle;
+type ProductImagery = $Enums.ProductImagery;
+type NavigationStyle = $Enums.NavigationStyle;
+type ContainerStyle = $Enums.ContainerStyle;
+type ButtonStyle = $Enums.ButtonStyle;
+type AnimationIndicator = $Enums.AnimationIndicator;
+type ToneOfVoice = $Enums.ToneOfVoice;
+type VisualToTextRatio = $Enums.VisualToTextRatio;
+type ContentFormat = $Enums.ContentFormat;
+type BorderRadius = $Enums.BorderRadius;
+type SpacingDensity = $Enums.SpacingDensity;
+type GlassmorphismIntensity = $Enums.GlassmorphismIntensity;
+type ShadowElevation = $Enums.ShadowElevation;
+type ContrastLevel = $Enums.ContrastLevel;
+
 // ---------------------------------------------------------------------------
-// Helpers: safe enum casting
+// Build valid-value Sets from the generated enum objects for runtime validation
 // ---------------------------------------------------------------------------
 
-/**
- * Safely cast a string to a Prisma enum value.
- * Returns undefined if the value is null/empty/not a valid member.
- * We rely on Prisma to reject truly invalid values at write time.
- */
-function toEnum<T extends string>(value: string | null | undefined): T | undefined {
-  if (!value || value.trim() === "") return undefined;
-  // Normalize: the JSON may use "3d_render" but the Prisma enum uses "three_d_render"
-  return value as T;
+function enumSet(enumObj: Record<string, string>): Set<string> {
+  return new Set(Object.values(enumObj));
 }
 
-/**
- * Cast an array of strings to an array of Prisma enum values.
- * Filters out empty/null entries.
- */
-function toEnumArray<T extends string>(values: string[] | null | undefined): T[] {
-  if (!values || !Array.isArray(values)) return [];
-  return values.filter((v) => v && v.trim() !== "") as T[];
-}
+const VALID: Record<string, Set<string>> = {
+  IndustryVertical: enumSet($Enums.IndustryVertical),
+  PageType: enumSet($Enums.PageType),
+  SectionType: enumSet($Enums.SectionType),
+  Viewport: enumSet($Enums.Viewport),
+  OverallVibe: enumSet($Enums.OverallVibe),
+  ThemeMode: enumSet($Enums.ThemeMode),
+  ColorPalette: enumSet($Enums.ColorPalette),
+  BackgroundTreatment: enumSet($Enums.BackgroundTreatment),
+  LayoutStructure: enumSet($Enums.LayoutStructure),
+  SectionDivider: enumSet($Enums.SectionDivider),
+  TypographyStyle: enumSet($Enums.TypographyStyle),
+  TextDecoration: enumSet($Enums.TextDecoration),
+  IconStyle: enumSet($Enums.IconStyle),
+  IllustrationStyle: enumSet($Enums.IllustrationStyle),
+  ProductImagery: enumSet($Enums.ProductImagery),
+  NavigationStyle: enumSet($Enums.NavigationStyle),
+  ContainerStyle: enumSet($Enums.ContainerStyle),
+  ButtonStyle: enumSet($Enums.ButtonStyle),
+  AnimationIndicator: enumSet($Enums.AnimationIndicator),
+  ToneOfVoice: enumSet($Enums.ToneOfVoice),
+  VisualToTextRatio: enumSet($Enums.VisualToTextRatio),
+  ContentFormat: enumSet($Enums.ContentFormat),
+  BorderRadius: enumSet($Enums.BorderRadius),
+  SpacingDensity: enumSet($Enums.SpacingDensity),
+  GlassmorphismIntensity: enumSet($Enums.GlassmorphismIntensity),
+  ShadowElevation: enumSet($Enums.ShadowElevation),
+  ContrastLevel: enumSet($Enums.ContrastLevel),
+};
+
+// Collect dropped values once per run to avoid log spam
+const _droppedWarnings = new Set<string>();
+
+// ---------------------------------------------------------------------------
+// Helpers: safe enum casting with validation
+// ---------------------------------------------------------------------------
 
 // Map from JSON values to Prisma enum names where they differ
 // (Prisma can't have identifiers starting with digits)
@@ -85,19 +109,55 @@ const ENUM_REMAP: Record<string, string> = {
   "3d_render": "three_d_render",
   "3d": "three_d",
   "10_percent": "ten_percent",
+  "2d_render": "two_d_render",
 };
 
-function remapEnum<T extends string>(value: string | null | undefined): T | undefined {
+/**
+ * Safely cast a string to a validated Prisma enum value.
+ * Remaps known aliases, then checks against the valid set.
+ * Returns undefined (and logs once) if the value isn't valid.
+ */
+function remapEnum<T extends string>(
+  value: string | null | undefined,
+  enumName: string,
+): T | undefined {
   if (!value || value.trim() === "") return undefined;
   const mapped = ENUM_REMAP[value] ?? value;
+  if (!VALID[enumName]?.has(mapped)) {
+    const key = `${enumName}:${value}`;
+    if (!_droppedWarnings.has(key)) {
+      _droppedWarnings.add(key);
+      console.warn(`[enum] Dropping unknown ${enumName} value: "${value}"`);
+    }
+    return undefined;
+  }
   return mapped as T;
 }
 
-function remapEnumArray<T extends string>(values: string[] | null | undefined): T[] {
+/**
+ * Cast an array of strings to validated Prisma enum values.
+ * Unknown values are silently filtered out (with one-time warning).
+ */
+function remapEnumArray<T extends string>(
+  values: string[] | null | undefined,
+  enumName: string,
+): T[] {
   if (!values || !Array.isArray(values)) return [];
-  return values
-    .filter((v) => v && v.trim() !== "")
-    .map((v) => (ENUM_REMAP[v] ?? v) as T);
+  const result: T[] = [];
+  for (const v of values) {
+    if (!v || v.trim() === "") continue;
+    const mapped = ENUM_REMAP[v] ?? v;
+    if (VALID[enumName]?.has(mapped)) {
+      result.push(mapped as T);
+    } else {
+      const key = `${enumName}:${v}`;
+      if (!_droppedWarnings.has(key)) {
+        _droppedWarnings.add(key);
+        console.warn(`[enum] Dropping unknown ${enumName} value: "${v}"`);
+      }
+    }
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -226,10 +286,10 @@ export class PgWriter {
     ctx: ParsedContext,
   ): Promise<void> {
     const data = {
-      industryVerticals: remapEnumArray<IndustryVertical>(ctx.industry_vertical),
-      pageType: remapEnum<PageType>(ctx.page_type),
-      sectionType: remapEnum<SectionType>(ctx.section_type),
-      viewport: remapEnum<Viewport>(ctx.viewport),
+      industryVerticals: remapEnumArray<IndustryVertical>(ctx.industry_vertical, "IndustryVertical"),
+      pageType: remapEnum<PageType>(ctx.page_type, "PageType"),
+      sectionType: remapEnum<SectionType>(ctx.section_type, "SectionType"),
+      viewport: remapEnum<Viewport>(ctx.viewport, "Viewport"),
     };
 
     await (tx as any).sectionContext.upsert({
@@ -245,10 +305,10 @@ export class PgWriter {
     aes: ParsedAesthetic,
   ): Promise<void> {
     const data = {
-      overallVibes: remapEnumArray<OverallVibe>(aes.overall_vibe),
-      themeMode: remapEnum<ThemeMode>(aes.theme_mode),
-      colorPaletteStyles: remapEnumArray<ColorPalette>(aes.color_palette_style),
-      backgroundTreatments: remapEnumArray<BackgroundTreatment>(aes.background_treatment),
+      overallVibes: remapEnumArray<OverallVibe>(aes.overall_vibe, "OverallVibe"),
+      themeMode: remapEnum<ThemeMode>(aes.theme_mode, "ThemeMode"),
+      colorPaletteStyles: remapEnumArray<ColorPalette>(aes.color_palette_style, "ColorPalette"),
+      backgroundTreatments: remapEnumArray<BackgroundTreatment>(aes.background_treatment, "BackgroundTreatment"),
     };
 
     await (tx as any).sectionAesthetic.upsert({
@@ -264,8 +324,8 @@ export class PgWriter {
     comp: ParsedComposition,
   ): Promise<void> {
     const data = {
-      layoutStructures: remapEnumArray<LayoutStructure>(comp.layout_structure),
-      sectionDividers: remapEnum<SectionDivider>(comp.section_dividers),
+      layoutStructures: remapEnumArray<LayoutStructure>(comp.layout_structure, "LayoutStructure"),
+      sectionDividers: remapEnum<SectionDivider>(comp.section_dividers, "SectionDivider"),
     };
 
     await (tx as any).sectionComposition.upsert({
@@ -281,15 +341,15 @@ export class PgWriter {
     ui: ParsedUiElements,
   ): Promise<void> {
     const data = {
-      typographyStyles: remapEnumArray<TypographyStyle>(ui.typography_style),
-      textDecorations: remapEnumArray<TextDecoration>(ui.text_decoration_details),
-      iconStyles: remapEnumArray<IconStyle>(ui.icon_style),
-      illustrationStyles: remapEnumArray<IllustrationStyle>(ui.illustration_style),
-      productImageryTypes: remapEnumArray<ProductImagery>(ui.product_imagery_type),
-      navigationStyles: remapEnumArray<NavigationStyle>(ui.navigation_style),
-      containerStyles: remapEnumArray<ContainerStyle>(ui.container_style),
-      buttonStyles: remapEnumArray<ButtonStyle>(ui.button_style),
-      animationIndicators: remapEnumArray<AnimationIndicator>(ui.animation_indicators),
+      typographyStyles: remapEnumArray<TypographyStyle>(ui.typography_style, "TypographyStyle"),
+      textDecorations: remapEnumArray<TextDecoration>(ui.text_decoration_details, "TextDecoration"),
+      iconStyles: remapEnumArray<IconStyle>(ui.icon_style, "IconStyle"),
+      illustrationStyles: remapEnumArray<IllustrationStyle>(ui.illustration_style, "IllustrationStyle"),
+      productImageryTypes: remapEnumArray<ProductImagery>(ui.product_imagery_type, "ProductImagery"),
+      navigationStyles: remapEnumArray<NavigationStyle>(ui.navigation_style, "NavigationStyle"),
+      containerStyles: remapEnumArray<ContainerStyle>(ui.container_style, "ContainerStyle"),
+      buttonStyles: remapEnumArray<ButtonStyle>(ui.button_style, "ButtonStyle"),
+      animationIndicators: remapEnumArray<AnimationIndicator>(ui.animation_indicators, "AnimationIndicator"),
     };
 
     await (tx as any).sectionUiElements.upsert({
@@ -305,9 +365,9 @@ export class PgWriter {
     cs: ParsedContentStrategy,
   ): Promise<void> {
     const data = {
-      tonesOfVoice: remapEnumArray<ToneOfVoice>(cs.tone_of_voice),
-      visualToTextRatio: remapEnum<VisualToTextRatio>(cs.visual_to_text_ratio),
-      contentFormats: remapEnumArray<ContentFormat>(cs.content_format),
+      tonesOfVoice: remapEnumArray<ToneOfVoice>(cs.tone_of_voice, "ToneOfVoice"),
+      visualToTextRatio: remapEnum<VisualToTextRatio>(cs.visual_to_text_ratio, "VisualToTextRatio"),
+      contentFormats: remapEnumArray<ContentFormat>(cs.content_format, "ContentFormat"),
     };
 
     await (tx as any).sectionContentStrategy.upsert({
@@ -323,11 +383,11 @@ export class PgWriter {
     dt: ParsedDesignTokens,
   ): Promise<void> {
     const data = {
-      borderRadius: remapEnum<BorderRadius>(dt.border_radius_scale),
-      spacingDensity: remapEnum<SpacingDensity>(dt.spacing_density),
-      glassmorphismIntensity: remapEnum<GlassmorphismIntensity>(dt.glassmorphism_intensity),
-      shadowElevation: remapEnum<ShadowElevation>(dt.shadow_elevation),
-      contrastLevel: remapEnum<ContrastLevel>(dt.contrast_level),
+      borderRadius: remapEnum<BorderRadius>(dt.border_radius_scale, "BorderRadius"),
+      spacingDensity: remapEnum<SpacingDensity>(dt.spacing_density, "SpacingDensity"),
+      glassmorphismIntensity: remapEnum<GlassmorphismIntensity>(dt.glassmorphism_intensity, "GlassmorphismIntensity"),
+      shadowElevation: remapEnum<ShadowElevation>(dt.shadow_elevation, "ShadowElevation"),
+      contrastLevel: remapEnum<ContrastLevel>(dt.contrast_level, "ContrastLevel"),
     };
 
     await (tx as any).sectionDesignTokens.upsert({
@@ -370,6 +430,33 @@ export class PgWriter {
     }
 
     return { success, errors };
+  }
+
+  // -------------------------------------------------------------------------
+  // Skip-detection: find sections already fully processed
+  // -------------------------------------------------------------------------
+
+  /**
+   * Given a list of section IDs, return the subset that already exist in PG
+   * with a completed embedding (i.e. section_embeddings row with non-null vector).
+   *
+   * This is the source of truth for "successfully saved" — if the embedding
+   * vector is present, we know the entire transaction succeeded.
+   */
+  async getAlreadyProcessedIds(sectionIds: string[]): Promise<Set<string>> {
+    if (sectionIds.length === 0) return new Set();
+
+    const results = await this.prisma.$queryRawUnsafe<
+      Array<{ section_id: string }>
+    >(
+      `SELECT section_id
+       FROM section_embeddings
+       WHERE section_id = ANY($1)
+         AND embedding IS NOT NULL`,
+      sectionIds,
+    );
+
+    return new Set(results.map((r) => r.section_id));
   }
 
   // -------------------------------------------------------------------------

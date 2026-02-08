@@ -4,5 +4,6 @@ dist/
 *.db
 *.sqlite
 *.sqlite3
+.cache/
 
 /src/generated/prisma
